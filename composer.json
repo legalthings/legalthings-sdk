@@ -1,0 +1,21 @@
+{
+    "name" : "legalthings-sdk/shop",
+    "description" : "A library to get templates, lincenses etc. from the microservices of LegalThings",
+    "keywords" : ["legalthings"],
+    "minimum-stability": "dev",
+    "repositories" : [
+        {
+            "type": "vcs",
+            "url": "https://github.com/legalthings/legalthings-sdk"
+        }
+    ],
+    "require" : {
+        "php": ">=5.5.0",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LegalThings\\SDK\\": "src/"
+        }
+    }
+}
