@@ -35,4 +35,34 @@ class Order
 
         return $obj;
     }
+
+    public function postPaymentAPI($sessionId, $licenseId, $organizationId, $returnURL) {
+        $client = new Client();
+        $data = [
+            'product' => $licenseId, 
+            'type' => 'license',
+            'organization' => $organizationId,
+            'returnURL' => $returnURL
+        ];
+
+        $headers = [
+            'X-Session' => $sessionId
+        ];
+        try {
+            $response = $client->request('POST', 'http://firm24.docarama.com/service/license/payment/start', [
+                    'headers' => $headers,
+                    'json' => $data
+            ]);
+        } catch (RequestException $e) {
+            echo 'Uh oh! ' . $e->getMessage();
+                if ($e->hasResponse()) {
+                    echo $e->getResponse();
+                }
+        }
+        
+        $data = $response->getBody();
+        $obj = json_decode($data);
+
+        return $obj;
+    }
 }
