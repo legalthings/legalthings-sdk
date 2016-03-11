@@ -31,13 +31,13 @@ class Auth
             $response = $client->request('POST', 'http://firm24.docarama.com/service/iam/sso/register?sso_session=' . $sso_session, [
                 'json' => [
                     'user' => [
-                        'first_name' => $user->first_name, 
-                        'last_name' => $user->last_name, 
-                        'email' => $user->email,
-                        'password' => $user->password
+                        'first_name' => $user['first_name'], 
+                        'last_name' => $user['last_name'], 
+                        'email' => $user['email'],
+                        'password' => $user['password']
                     ],
                     'organization' => [
-                        "name" => $user->first_name,
+                        "name" => $user['first_name'],
                         "type" => "client"
                     ],
                     'login' => true
