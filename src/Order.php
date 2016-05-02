@@ -65,4 +65,28 @@ class Order
 
         return $obj;
     }
+    
+    public function getTransaction($sessionId, $id) {
+    	if (!$id) throw new InvalidArgumentException("Transaction id not specified");
+    	if (!$sessionId) throw new InvalidArgumentException("Session id not specified");
+    	$client = new Client([]);
+    	try {
+    		$response = $client->get('http://firm24.docarama.com/service/license/transactions/' . $id, [
+    			'headers' => [
+    				'Content-Type' => 'application/json',
+    				'X-Session' => $sessionId
+    			]
+    		]);
+    	} catch (RequestException $e) {
+    		echo 'Uh oh! ' . $e->getMessage();
+    		if ($e->hasResponse()) {
+    			echo $e->getResponse();
+    		}
+    	}
+    
+    	$data = $response->getBody();
+    	$obj = json_decode($data);
+    
+    	return $obj;
+    }
 }
