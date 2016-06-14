@@ -6,6 +6,28 @@ class License
 {
     public function __construct(){}
 
+    public function getLicensesOfOrganization($organizationId, $sessionId)
+    {
+        $client = new Client([]);
+        try {
+            $response = $client->get('http://firm24.docarama.com/service/license/organizations/' . $organizationId, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'X-Session' => $sessionId
+                ]
+            ]);
+        } catch (RequestException $e) {
+            echo 'Uh oh! ' . $e->getMessage();
+            if ($e->hasResponse()) {
+                echo $e->getResponse();
+            }
+        }
+        $body = $response->getBody();
+        $data = json_decode($body);
+
+        return $data;
+    }
+
     public function getLicenses() {
         $client = new Client([]);
         try {
